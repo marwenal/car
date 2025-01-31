@@ -1,4 +1,36 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.spacing {
+    margin-top: 20px;
+    margin-left: 16px;
+}
+
+.spacing-characteristic:first-child {
+    margin-right: 10px;
+}
+
+.success-snackbar {
+    background-color: #4caf50;
+    color: white;
+}
+.container {
+    margin: 15px;
+}
+
+.car-button-container {
+    padding-bottom: 16px;
+}
+
+.car-button+.car-button {
+    margin-left: 8px;
+}

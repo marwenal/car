@@ -6,6 +6,7 @@ import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/materia
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-car-dialog',
@@ -16,6 +17,7 @@ import { MatInputModule } from '@angular/material/input';
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
+    MatCardModule,
     MatButtonModule,
     ReactiveFormsModule
   ],
@@ -25,26 +27,32 @@ import { MatInputModule } from '@angular/material/input';
 export class CarDialogComponent {
 
   carForm!: FormGroup;
+  title: any = "Ajouter une voiture";
 
   constructor(
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<CarDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
+    if(data){
+      this.title ='Modifier la voiture';
+    }
+    let characteristic:any=[];
     if (data?.characteristic)
-      data.characteristic = Object.keys(data?.characteristic).map(key => ({
-        key,
-        value: data?.characteristic[key]
-      }));
+    characteristic = Object.keys(data?.characteristic).map(key => ({
+      key,
+      value: data?.characteristic[key]
+    }));
+
     this.carForm = this.fb.group({
       model: [data?.model, Validators.required],
       kmh: [data?.kmh, Validators.required],
-      characteristic: this.fb.array(data?.characteristic ? data?.characteristic.map((entry: any) => 
+      characteristic: this.fb.array(data?.characteristic ? characteristic.map((entry: any) =>
         this.fb.group({
-        key: [entry.key, Validators.required],
-        value: [entry.value, Validators.required]
-      })
-    ):[])
+          key: [entry.key, Validators.required],
+          value: [entry.value, Validators.required]
+        })
+      ) : [])
     });
   }
 
