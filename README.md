@@ -21,29 +21,55 @@ Avant de commencer, assurez-vous que vous avez installé les outils suivants :
 
 ## Installation
 
-1. Clonez le dépôt du projet :
-   ```bash
-   git clone <URL-du-dépôt>
-   cd <nom-du-dossier>
-2. Lancer le projet avec Docker Compose:
-   ```bash
-   docker-compose up --build -d 
-4. Accédez au répertoire api_car:
+### 1. Cloner le dépôt du projet
+```bash
+git clone <URL-du-dépôt>
+cd <nom-du-dossier>
+```
+
+### 2. Lancer les services avec Docker Compose
+```bash
+docker-compose up --build -d
+```
+
+## Installation de l'API Symfony
+
+1. Accédez au répertoire `api_car` :
    ```bash
    cd api_car
-6. Installez les dépendances avec Composer :
+   ```
+
+2. Installez les dépendances avec Composer :
    ```bash
    composer install
-8. Créez et appliquez les migrations de la base de données :
+   ```
+
+3. Assurez-vous que le répertoire de stockage et le cache ont les bonnes permissions :
+   ```bash
+   chmod -R 777 var/
+   ```
+
+4. Créez et appliquez les migrations de la base de données :
    ```bash
    php bin/console doctrine:migrations:migrate
-10. Accédez au répertoire app_car:
-    ```bash
-    cd app_car
-12. Installez les dépendances avec npm:
-    ```bash
-    npm install
-14. Lancez le serveur de développement Angular :
-    ```bash
-    ng serve
-   
+   ```
+
+## Installation de l'application Angular
+
+1. Accédez au répertoire `app_car` :
+   ```bash
+   cd app_car
+   ```
+
+2. Installez les dépendances avec npm :
+   ```bash
+   npm install
+   ```
+
+3. Lancez le serveur de développement Angular :
+   ```bash
+   ng serve
+   ```
+
+Votre application Angular sera accessible via `http://localhost:4200`, et l'API Symfony via `http://localhost:8081` (ou selon la configuration de votre `docker-compose.yml`).
+
