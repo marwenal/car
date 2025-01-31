@@ -1,0 +1,44 @@
+services:
+
+    db:
+        image: mysql
+        container_name: db_car
+        restart: always
+        env_file:
+            - .env.docker
+        volumes:
+            - ./db-data:/var/lib/mysql
+        networks:
+            - network_car
+
+    phpmyadmin:
+        image: phpmyadmin
+        container_name: phpmyadmin_car
+        restart: always
+        depends_on:
+            - db
+        ports:
+            - "8082:80"
+        environment:
+          - PMA_HOST = db
+          - PMA_ARBITRARY = 1
+        networks:
+            - network_car
+
+    www:
+        build: ./docker/php
+        container_name: www_car
+        ports:
+            - "8081:80"
+        volumes:
+            - ./docker/php/vhosts:/etc/apache2/sites-enabled
+            - ./docker/php/php.ini:/usr/local/etc/php/conf.d/php.ini
+            - ./:/var/www
+        networks:
+            - network_car
+
+networks:
+    network_car:
+        driver: bridge
+volumes:
+    db-data:

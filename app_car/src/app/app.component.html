@@ -1,0 +1,43 @@
+<div class="container mt-4">
+  <h1 class="text-center">Liste des Voitures</h1>
+
+  <button mat-raised-button color="primary" (click)="addCar()">Ajouter une voiture</button>
+  <button mat-raised-button color="primary" (click)="calculateTime()">Calculer le temps de trajet</button>
+
+  <table class="table table-striped table-hover mt-4">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Modèle</th>
+        <th>Vitesse (Km/h)</th>
+        <th>Caractéristiques</th>
+        <th>Actions</th> <!-- Colonne pour les actions -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let car of cars; let i = index">
+        <td>{{ car.id }}</td>
+        <td>{{ car.model }}</td>
+        <td>{{ car.kmh }}</td>
+        <td>
+          <ul *ngIf="car.characteristic" class="list-group">
+            <li class="list-group-item" *ngFor="let key of objectKeys(car.characteristic)">
+              {{ key }}: {{ car.characteristic[key] }}
+            </li>
+          </ul>
+        </td>
+        <td class="action-buttons">
+          <!-- Bouton d'édition -->
+          <button mat-icon-button color="primary" (click)="editCar(car)">
+            <mat-icon>edit</mat-icon>
+          </button>
+
+          <!-- Bouton de suppression -->
+          <button mat-icon-button color="warn" (click)="deleteCar(car.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

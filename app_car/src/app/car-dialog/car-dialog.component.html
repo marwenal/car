@@ -1,0 +1,45 @@
+<h2 mat-dialog-title>Modifier la voiture</h2>
+<mat-dialog-content>
+  <form [formGroup]="carForm">
+    <mat-form-field class="full-width">
+      <mat-label>Modèle</mat-label>
+      <input matInput formControlName="model" required>
+      <mat-error *ngIf="carForm.get('model')?.invalid">Le modèle est requis</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Vitesse (Km/h)</mat-label>
+      <input matInput type="number" formControlName="kmh" required>
+      <mat-error *ngIf="carForm.get('kmh')?.invalid">La vitesse est requise</mat-error>
+    </mat-form-field>
+    
+    <div formArrayName="characteristic" class="characteristic-container">
+      Caractéristiques
+      <div *ngFor="let characteristic of characteristic.controls; let i = index" [formGroupName]="i" class="characteristic-item">
+        <mat-form-field class="full-width">
+          <mat-label>Clé</mat-label>
+          <input matInput formControlName="key" required placeholder="Entrez la clé" />
+          <mat-error *ngIf="characteristic.get('key')?.invalid">La clé est requise</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+          <mat-label>Valeur</mat-label>
+          <input matInput formControlName="value" required placeholder="Entrez la valeur" />
+          <mat-error *ngIf="characteristic.get('value')?.invalid">La valeur est requise</mat-error>
+        </mat-form-field>
+
+        <button mat-icon-button color="warn" type="button" (click)="removeCharacteristicField(i)" aria-label="Supprimer">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <button mat-icon-button type="button" color="accent" (click)="addCharacteristicField()"><mat-icon>add</mat-icon></button>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onClose()">Annuler</button>
+  <button mat-button color="primary" (click)="onSave()" [disabled]="carForm.invalid">Enregistrer</button>
+</mat-dialog-actions>
+

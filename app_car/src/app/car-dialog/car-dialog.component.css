@@ -1,0 +1,22 @@
+.characteristic-container {
+    margin-top: 20px;
+  }
+  
+  .characteristic-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    align-items: center;
+  }
+  
+  .characteristic-item mat-form-field {
+    width: 48%;
+  }
+  
+  button[mat-icon-button] {
+    margin-left: 10px;
+  }
+  
+  button[mat-raised-button] {
+    margin-top: 20px;
+  }
